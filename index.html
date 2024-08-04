@@ -8,7 +8,14 @@
     <script type="module" src="./game.js"></script>
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <style>
+        @font-face{
+    font-family: 'pixel';
+    src: url('/assets/fonts/SuperMario.ttf')
+  }
       body {
+        /* para que carga el el font damili del pizel de en el juego se define empezando el juego para que lo tome */
+        font-family: 'pixel', sans-serif
+        ;
         display: grid;
         height: 100vh;
         background: black;

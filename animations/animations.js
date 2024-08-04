@@ -20,4 +20,28 @@ export const createAnimations = (game) => {
     key: "mario-dead",
     frames: [{ key: "mario", frame: 4 }],
   });
+
+  // goomba caminando
+  game.anims.create({
+    key: "goomba-walk",
+    frames: game.anims.generateFrameNumbers("goomba", { start: 0, end: 1 }),
+    frameRate: 12,
+    repeat: -1,
+  });
+
+  //goomba murisiendo
+  game.anims.create({
+    key: "goomba-hit",
+    frames: [{ key: "goomba", frame: 2 }],
+  });
+
+  // animando el coin
+
+  game.anims.create({
+    key: "coin-spin",
+    frames: game.anims.generateFrameNumbers("coin", { start: 0, end: 3 }),
+    frameRate: 12,
+    repeat: -1,
+  });
+
 };

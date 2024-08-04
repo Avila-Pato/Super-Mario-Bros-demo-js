@@ -20,6 +20,11 @@ export const createAnimations = (game) => {
     key: "mario-dead",
     frames: [{ key: "mario", frame: 4 }],
   });
+  //aniamcion de hacer grande al mario al recuperar la seta
+  game.anims.create({
+    key: "mario-grown-idle",
+    frames: [{ key: "mario-grown", frame: 0 }],
+  });
 
   // goomba caminando
   game.anims.create({
@@ -43,5 +48,11 @@ export const createAnimations = (game) => {
     frameRate: 12,
     repeat: -1,
   });
+
+  
+
+
+
+  
 
 };

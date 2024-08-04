@@ -16,7 +16,14 @@ const INIT_SPRITESHEETS = [
   path: "assets/collectibles/coin.png",
   frameWidth: 16,
   frameHeight: 16,
+},
+{
+  key: 'mario-grown',
+  path:'assets/entities/mario-grown.png',
+  frameWidth: 18,
+  frameHeight: 32,
 }
+
 ];
 
 export const initSpritesheet = ({ load }) => {

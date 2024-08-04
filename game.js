@@ -35,6 +35,15 @@ function preload() {
   );
   this.load.image("floorbricks", "./assets/scenery/overworld/floorbricks.png");
 
+
+
+// generando el honho
+  this.load.image(
+  'supermushroom',
+  "assets/collectibles/super-mushroom.png"
+)
+
+
   //spritesheet
   initSpritesheet(this);
   // Audios
@@ -52,6 +61,7 @@ function create() {
   //Suelo del Juego agregando  agrupacion
   this.floor = this.physics.add.staticGroup();
 
+  // creacion de suelo
   this.floor
     .create(0, config.height - 16, "floorbricks")
     .setOrigin(0, 0.5)
@@ -63,7 +73,7 @@ function create() {
     .refreshBody();
 
 
-  // cuando se agrega fisica al juego los componentes tienen que cambiar
+  // agreagando mario al juego 
   this.mario = this.physics.add
     .sprite(50, 100, "mario")
     .setOrigin(0, 1)
@@ -76,20 +86,25 @@ function create() {
     .setOrigin(0, 1)
     .setGravityY(300)
     .setVelocity(-20);
+    
   
 
   
     // caminar de enemigo
   this.enemy.anims.play("goomba-walk", true); 
-  // agreagando moneda al juego 
-  this.coins = this.physics.add.staticGroup()
-  this.coins.create(150, 150, 'coin').anims.play("coin-spin", true);
-  this.coins.create(250, 150, 'coin').anims.play("coin-spin", true);
-  this.coins.create(180, 150, 'coin').anims.play("coin-spin", true);
   
+  // agreagando moneda al juego 
+  this.collectibes = this.physics.add.staticGroup()
+  this.collectibes.create(150, 150, 'coin').anims.play("coin-spin", true);
+  this.collectibes.create(250, 150, 'coin').anims.play("coin-spin", true);
+  this.collectibes.create(180, 150, 'coin').anims.play("coin-spin", true);
+
+  //generando seta en el juego
+  this.collectibes.create(200, config.height -40, 'supermushroom')
+  .anims.play("supermushroom-idle", true)
   
  // agreagando interracion de la moneda y mario
- this.physics.add.overlap(this.mario, this.coins, collectCoin, null, this) 
+ this.physics.add.overlap(this.mario, this.collectibes, collectItem, null, this) 
  
       
 
@@ -114,16 +129,48 @@ function create() {
   this.keys = this.input.keyboard.createCursorKeys();
 }
 
-
-
-
-
-
 //logica de la moneda para que desaparesca  al ser recogida
-function collectCoin(mario, coin) {
-  coin.disableBody(true, true);
-  playAudio("coin-pickup", this, { volume: 0.2 });
-  addToScore(100, coin, this);
+function collectItem(mario, item) {
+  const {texture: {key }} = item
+  item.destroy()
+
+
+  if(key === 'coin'){
+    playAudio("coin-pickup", this, { volume: 0.2 });
+    addToScore(100, item, this);
+
+  }else if(key === 'supermushroom') {
+    this.physics.world.pause();
+    this.anims.pauseAll();
+
+
+    
+    playAudio("powerup", this, { volume: 0.2 });
+    // ejecucuion de animacion (parpadeo) de mario al recoger hongo
+    let i = 0
+     const interval = setInterval(() => {
+      i++;
+       mario.anims.play(i % 2 == 0
+        ? "mario-grown-idle"
+        : "mario-idle",
+       );
+    }, 100);
+
+    
+    mario.isBlocked = true;
+    mario.isGrown = true;
+
+    setTimeout(() => {
+      mario.setDisplaySize(18, 32);
+      mario.body.setSize(18, 32);
+
+      this.anims.resumeAll();
+      mario.isBlocked = false;
+      clearInterval(interval);
+      this.physics.world.resume();
+    }, 1000);
+ 
+  }
 
 }
  

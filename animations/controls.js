@@ -1,10 +1,36 @@
+
+// Aplicando logica de mario al comerse el hongo
+const MARIO_ANIMATIONS = {
+  grow: {
+    idle: 'mario-grow-idle',
+    walk: 'mario-grow-walk',
+    jump: 'mario-grow-jump'
+  },
+  normal: {
+    idle: 'mario-idle',
+    walk: 'mario-walk',
+    jump: 'mario-jump'
+  }
+}
+
+
+
 export function checkControls({ mario, keys }) {
   const isMarioTouchingFloor = mario.body.touching.down;
 
   const isLeftKeyDown = keys.left.isDown;
   const isRightKeyDown = keys.right.isDown;
   const isUpKeyDown = keys.up.isDown;
+
   if (mario.isDead) return;
+  if (mario.isBlocked) return;
+
+  // Aplicando logica de mario al comerse el hongo en un operador ternario
+  const marioAnimations = mario.isGrown 
+  ? MARIO_ANIMATIONS.grow 
+  : MARIO_ANIMATIONS.normal;
+
+
 
   if (isLeftKeyDown) {
     //animaciond emario caminando
@@ -19,7 +45,7 @@ export function checkControls({ mario, keys }) {
     mario.flipX = false;
   } else if (isMarioTouchingFloor) {
     //mario se queda quieto
-    mario.anims.play("mario-idle", true);
+    mario.anims.play(marioAnimations.idle, true);
   }
 
   if (isUpKeyDown && isMarioTouchingFloor) {

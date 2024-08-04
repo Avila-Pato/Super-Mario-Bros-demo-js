@@ -28,4 +28,4 @@ npm install phaser
 Para clonar el proyecto, utiliza el siguiente comando:
 
 ```bash
-git clone https://github.com/Avila-Pato/Super-Mario-Bros-demo-js/tree/main
+git clone https://github.com/Avila-Pato/Super-Mario-Bros-demo-js

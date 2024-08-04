@@ -1,11 +1,12 @@
-# Proyecto de Juego con Phaser usando JS
+# Proyecto de Juego con Phaser usando JS css y htmnl
 
 Este proyecto utiliza Phaser para desarrollar un juego. A continuación, se detallan las herramientas y tecnologías empleadas.
 
-## Tecnologías Utilizadas
+## Tecnologías y herramientas Utilizadas
 
-- **Phaser:** Un framework para desarrollo de juegos en HTML5.
-- **JavaScript:** Lenguaje de programación principal del proyecto.
+- **Phaser:** 
+- **JavaScript:**
+- - **CSSñ**
 
 
 ## Pasos Principales del Desarrollo

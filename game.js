@@ -97,11 +97,12 @@ function collectItem(mario, item) {
     playAudio("coin-pickup", this, { volume: 0.2 });
     addToScore(100, item, this);
   } else if (key === "supermushroom") {
+    playAudio("powerup", this, { volume: 0.2 });
+
     this.physics.world.pause();
     this.anims.pauseAll();
 
     // logica de mario al comerse el hongo
-
     if (key === "supermushroom") {
       this.physics.world.pause(); // detiene las animaciones cuando amrio crece
       this.anims.pauseAll();
@@ -123,15 +124,14 @@ function collectItem(mario, item) {
     setTimeout(() => {
         // Ajustar el tamaño permanentemente si Mario está en estado crecido
         mario.setDisplaySize(18, 32);
-     
-        
-        
+        this.physics.world.resume();
+
         this.anims.resumeAll();
         mario.isBlocked = false;
-        mario.anims.play("mario-grow-idle", true);
+        mario.anims.play("mario-grow-idle", true); // Asegúrate de que haya una animación que represente a Mario crecido
         clearInterval(interval);
         this.physics.world.resume();
-    }, 900);
+    }, 750);
   }
 }
 }
@@ -181,6 +181,7 @@ function update() {
   checkControls(this);
   // logica de mario al quedarse quito para que quede el sprite 
  mario.isGrown = false;
+ 
 
   
 

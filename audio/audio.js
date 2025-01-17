@@ -13,7 +13,7 @@ const INIT_AUDIOS = [
   },
   {
     key: 'powerup',
-    path: 'assets/sound/effects/consume-powerup.mp3',
+    path: 'assets/sound/effects/mario-grown.mp3',
   }
 ];
 

@@ -32,6 +32,7 @@ export function checkControls({ mario, keys }) {
 
 
 
+
   if (isLeftKeyDown) {
     //animaciond emario caminando
     isMarioTouchingFloor && mario.anims.play("mario-walk", true);
@@ -45,11 +46,11 @@ export function checkControls({ mario, keys }) {
     mario.flipX = false;
   } else if (isMarioTouchingFloor) {
     //mario se queda quieto
-    mario.anims.play(marioAnimations.idle, true);
-  }
+    mario.anims.play(marioAnimations.idle, true); 
+  } 
 
   if (isUpKeyDown && isMarioTouchingFloor) {
-    //altura de mario
+    //altura de salto de mario
     mario.setVelocityY(-300);
     mario.anims.play("mario-jump", true);
   }

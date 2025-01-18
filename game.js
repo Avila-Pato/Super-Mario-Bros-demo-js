@@ -29,6 +29,9 @@ function preload() {
   this.load.image("cloud1", "./assets/scenery/overworld/cloud1.png");
   this.load.image("floorbricks", "./assets/scenery/overworld/floorbricks.png");
   this.load.image("supermushroom", "assets/collectibles/super-mushroom.png");
+  this.load.image("logo", "assets/scenery/sign.png");
+  this.load.image("bush2", "assets/scenery/overworld/bush2.png");
+  this.load.image("bush1", "assets/scenery/overworld/bush1.png");
 
   initSpritesheet(this);
   initAudio(this);
@@ -38,9 +41,19 @@ function create() {
   createAnimations(this);
 
   // Añade las nubes
-  this.add.image(100, 50, "cloud1").setOrigin(0, 0).setScale(0.15);
+  this.add.image(100, 70, "cloud1").setOrigin(0, 0).setScale(0.15);
   this.add.image(30, 100, "cloud1").setOrigin(0, 0).setScale(0.15);
-  this.add.image(150, 100, "cloud1").setOrigin(0, 0).setScale(0.15);
+  this.add.image(180, 90, "cloud1").setOrigin(0, 0).setScale(0.15);
+
+  // logo de mario Bros
+  this.add.image(100, 10, "logo").setOrigin(0, 0).setScale(0.60);
+
+  // Bush 
+  this.add.image(210, 190, "bush2").setOrigin(0, ).setScale(0.65);
+  this.add.image(10, 190, "bush1").setOrigin(0, ).setScale(0.65);
+
+
+
 
   // Piso
   this.floor = this.physics.add.staticGroup();

@@ -14,7 +14,12 @@ const INIT_AUDIOS = [
   {
     key: 'powerup',
     path: 'assets/sound/effects/mario-grown.mp3',
-  }
+  },
+  {
+    key: 'funny',
+    path: 'assets/sound/funny/dross.mp3',
+  },
+
 ];
 
 export const initAudio = ({ load }) => {

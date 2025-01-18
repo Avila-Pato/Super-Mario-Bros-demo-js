@@ -37,34 +37,45 @@ function preload() {
 function create() {
   createAnimations(this);
 
-  this.add
-    .image(100, 50, "cloud1")
-    .setOrigin(0, 0)
-    .setScale(0.15);
+  // Añade las nubes
+  this.add.image(100, 50, "cloud1").setOrigin(0, 0).setScale(0.15);
+  this.add.image(30, 100, "cloud1").setOrigin(0, 0).setScale(0.15);
+  this.add.image(150, 100, "cloud1").setOrigin(0, 0).setScale(0.15);
 
+  // Piso
   this.floor = this.physics.add.staticGroup();
-  this.floor
-    .create(0, config.height - 16, "floorbricks")
-    .setOrigin(0, 0.5)
-    .refreshBody();
-  this.floor
-    .create(170, config.height - 16, "floorbricks")
-    .setOrigin(0, 0.5)
-    .refreshBody();
+  this.floor.create(0, config.height - 16, "floorbricks").setOrigin(0, 0.5).refreshBody();
+  this.floor.create(170, config.height - 16, "floorbricks").setOrigin(0, 0.5).refreshBody();
+  this.floor.create(330, config.height - 16, "floorbricks").setOrigin(0, 0.5).refreshBody();
 
-  this.mario = this.physics.add
-    .sprite(50, 100, "mario")
+  // Mario
+  this.mario = this.physics.add.sprite(50, 100, "mario")
     .setOrigin(0, 1)
     .setCollideWorldBounds(true)
     .setGravityY(300);
 
-  this.enemy = this.physics.add
-    .sprite(100, config.height - 30, "goomba")
-    .setOrigin(0, 1)
-    .setGravityY(300)
-    .setVelocity(-20);  // velocidad de goomba
-  this.enemy.anims.play("goomba-walk", true);
+  // Grupo de enemigos Goomba
+  this.goombas = this.physics.add.group();
 
+  const goombaPositions = [
+    { x: 100, y: config.height - 30 },
+    { x: 240, y: config.height - 30 },
+    { x: 300, y: config.height - 30 },
+  ];
+
+  // Crear los Goombas en sus posiciones iniciales
+  goombaPositions.forEach(({ x, y }) => {
+    const goomba = this.goombas.create(x, y, "goomba");
+    goomba.setOrigin(0, 1).setGravityY(300).setVelocityX(-20);
+  });
+
+  // Colisiones
+  this.physics.add.collider(this.goombas, this.floor);
+
+  // Reproducir la animación para todos los enemigos Goomba
+  this.goombas.playAnimation("goomba-walk");
+
+  // Añadir coleccionables
   this.collectibes = this.physics.add.staticGroup();
   this.collectibes.create(150, 150, "coin").anims.play("coin-spin", true);
   this.collectibes.create(250, 150, "coin").anims.play("coin-spin", true);
@@ -74,16 +85,18 @@ function create() {
     .create(200, config.height - 40, "supermushroom")
     .anims.play("supermushroom-idle", true);
 
+  // Superposición Mario - Coleccionables
   this.physics.add.overlap(this.mario, this.collectibes, collectItem, null, this);
 
+  // Configuración de cámara
   this.physics.world.setBounds(0, 0, 2000, config.height);
   this.physics.add.collider(this.mario, this.floor);
-  this.physics.add.collider(this.enemy, this.floor);
-  this.physics.add.collider(this.mario, this.enemy, onHitEnemy, null, this);
+  this.physics.add.collider(this.mario, this.goombas, onHitEnemy, null, this);
 
   this.cameras.main.setBounds(0, 0, 2000, config.height);
   this.cameras.main.startFollow(this.mario);
 
+  // Controles de teclado
   this.keys = this.input.keyboard.createCursorKeys();
 }
 
@@ -165,7 +178,7 @@ function onHitEnemy(mario, enemy) {
     enemy.anims.play("goomba-hit", true);
     enemy.setVelocityX(0);
     mario.setVelocityY(-200);
-    playAudio("goomba-stomp", this);
+    playAudio("funny", this , { volume: 0.2 });
     addToScore(200, enemy, this);
     setTimeout(() => {
       enemy.destroy();

@@ -33,6 +33,8 @@ function preload() {
   this.load.image("bush2", "assets/scenery/overworld/bush2.png");
   this.load.image("bush1", "assets/scenery/overworld/bush1.png");
 
+  this.load.image("customBlock", "assets/blocks/overworld/customBlock.png");
+
   initSpritesheet(this);
   initAudio(this);
 }
@@ -52,17 +54,17 @@ function create() {
   this.add.image(210, 190, "bush2").setOrigin(0, ).setScale(0.65);
   this.add.image(10, 190, "bush1").setOrigin(0, ).setScale(0.65);
 
-
-
-
   // Piso
   this.floor = this.physics.add.staticGroup();
   this.floor.create(0, config.height - 16, "floorbricks").setOrigin(0, 0.5).refreshBody();
   this.floor.create(170, config.height - 16, "floorbricks").setOrigin(0, 0.5).refreshBody();
-  this.floor.create(330, config.height - 16, "floorbricks").setOrigin(0, 0.5).refreshBody();
+   this.floor.create(430, config.height - 16, "floorbricks").setOrigin(0, 0.5).refreshBody();
+
+  // Piso flotante 
+  this.floor.create(350, config.height - 90, "customBlock").setOrigin(0, 0.5).refreshBody();
 
   // Mario
-  this.mario = this.physics.add.sprite(50, 100, "mario")
+  this.mario = this.physics.add.sprite(50, 200, "mario")
     .setOrigin(0, 1)
     .setCollideWorldBounds(true)
     .setGravityY(300);
@@ -113,6 +115,7 @@ function create() {
   this.keys = this.input.keyboard.createCursorKeys();
 }
 
+
 function collectItem(mario, item) {
   const {
     texture: { key },
@@ -132,8 +135,6 @@ function collectItem(mario, item) {
     if (key === "supermushroom") {
       this.physics.world.pause(); // detiene las animaciones cuando amrio crece
       this.anims.pauseAll();
-
-      
 
 
     let i = 0;
